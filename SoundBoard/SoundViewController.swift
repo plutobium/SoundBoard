@@ -28,11 +28,20 @@ class SoundViewController: UIViewController {
             try audioSession.overrideOutputAudioPort(.speaker)
             try audioSession.setActive(true)
             
-            // create settings
-            
-            
             // create url
-            audioRecorder = try AVAudioRecorder(url: <#T##URL#>, settings: <#T##[String : Any]#>)
+            let basePath:String = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true).first!
+            let pathComponents = [basePath,"audio.m4a"]
+            let audioURL = NSURL.fileURL(withPathComponents: pathComponents)!
+            print("----> " + audioURL.absoluteString)
+            
+            // create settings
+            var settings : [String:Any] = [:]
+            settings[AVFormatIDKey] = Int(kAudioFormatMPEG4AAC)
+            settings[AVSampleRateKey] = 44100.0
+            settings[AVNumberOfChannelsKey] = 2
+            
+            audioRecorder = try AVAudioRecorder(url: audioURL, settings: settings)
+            audioRecorder!.prepareToRecord()
             
         } catch let error as NSError {
             print(error)
@@ -40,6 +49,17 @@ class SoundViewController: UIViewController {
     }
     
     @IBAction func recordButtonAction(_ sender: Any) {
+        if audioRecorder!.isRecording {
+            // stop the recording
+            audioRecorder!.stop()
+            // change button title to record
+            recordButton.setTitle("Record",for: .normal)
+        } else {
+            // star the recording
+            audioRecorder!.record()
+            // change button title to Stop
+            recordButton.setTitle("Stop",for: .normal)
+        }
     }
     
     @IBAction func playButtonAction(_ sender: Any) {
