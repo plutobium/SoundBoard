@@ -7,13 +7,37 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SoundViewController: UIViewController {
-
+    
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
+    
+    var audioRecorder : AVAudioRecorder?
+    
+    func setupRecorder() {
+        
+        do {
+            
+            // create audio session
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.overrideOutputAudioPort(.speaker)
+            try audioSession.setActive(true)
+            
+            // create settings
+            
+            
+            // create url
+            audioRecorder = try AVAudioRecorder(url: <#T##URL#>, settings: <#T##[String : Any]#>)
+            
+        } catch let error as NSError {
+            print(error)
+        }
+    }
     
     @IBAction func recordButtonAction(_ sender: Any) {
     }
@@ -27,24 +51,12 @@ class SoundViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupRecorder()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
