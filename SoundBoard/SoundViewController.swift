@@ -17,6 +17,8 @@ class SoundViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     
     var audioRecorder : AVAudioRecorder?
+    var audioPlayer : AVAudioPlayer?
+    var audioURL : URL?
     
     func setupRecorder() {
         
@@ -31,8 +33,8 @@ class SoundViewController: UIViewController {
             // create url
             let basePath:String = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true).first!
             let pathComponents = [basePath,"audio.m4a"]
-            let audioURL = NSURL.fileURL(withPathComponents: pathComponents)!
-            print("----> " + audioURL.absoluteString)
+            audioURL = NSURL.fileURL(withPathComponents: pathComponents)!
+            print("----> " + audioURL!.absoluteString)
             
             // create settings
             var settings : [String:Any] = [:]
@@ -40,7 +42,7 @@ class SoundViewController: UIViewController {
             settings[AVSampleRateKey] = 44100.0
             settings[AVNumberOfChannelsKey] = 2
             
-            audioRecorder = try AVAudioRecorder(url: audioURL, settings: settings)
+            audioRecorder = try AVAudioRecorder(url: audioURL!, settings: settings)
             audioRecorder!.prepareToRecord()
             
         } catch let error as NSError {
@@ -54,24 +56,34 @@ class SoundViewController: UIViewController {
             audioRecorder!.stop()
             // change button title to record
             recordButton.setTitle("Record",for: .normal)
+            playButton.isEnabled = true
         } else {
             // star the recording
             audioRecorder!.record()
             // change button title to Stop
             recordButton.setTitle("Stop",for: .normal)
+            playButton.isEnabled = false
         }
     }
     
     @IBAction func playButtonAction(_ sender: Any) {
+        do {
+            try audioPlayer = AVAudioPlayer(contentsOf: audioURL!)
+            audioPlayer!.play()
+        } catch {
+            print("Something wrong playing audio")
+        }
     }
     
     @IBAction func addButtonAction(_ sender: Any) {
+        
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRecorder()
+        playButton.isEnabled = false
     }
     
     override func didReceiveMemoryWarning() {
