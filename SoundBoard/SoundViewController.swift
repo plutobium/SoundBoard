@@ -57,12 +57,14 @@ class SoundViewController: UIViewController {
             // change button title to record
             recordButton.setTitle("Record",for: .normal)
             playButton.isEnabled = true
+            addButton.isEnabled = true
         } else {
             // star the recording
             audioRecorder!.record()
             // change button title to Stop
             recordButton.setTitle("Stop",for: .normal)
             playButton.isEnabled = false
+            addButton.isEnabled = false
         }
     }
     
@@ -77,6 +79,20 @@ class SoundViewController: UIViewController {
     
     @IBAction func addButtonAction(_ sender: Any) {
         
+        // create core data context
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        // create object
+        let sound = Sound(context:context)
+        sound.name = nameTextField.text
+        sound.audio = NSData(contentsOf: audioURL!) as! Data
+        
+        // save
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        // go back
+        navigationController!.popViewController(animated: true)
+        
     }
     
     
@@ -84,6 +100,7 @@ class SoundViewController: UIViewController {
         super.viewDidLoad()
         setupRecorder()
         playButton.isEnabled = false
+        addButton.isEnabled = false
     }
     
     override func didReceiveMemoryWarning() {

@@ -9,41 +9,45 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
-        <scene sceneID="EkD-GX-BoX">
+        <!--View Controller-->
+        <scene sceneID="VRd-Gg-DuR">
             <objects>
-                <tableViewController id="P5a-uR-4pL" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pfB-eQ-EfQ">
+                <viewController id="UMA-ih-snP" customClass="ViewController" customModule="SoundBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qVu-ZN-qnu"/>
+                        <viewControllerLayoutGuide type="bottom" id="iEJ-ZM-Cr3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mX6-n5-H2V">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ytx-XD-4WA">
+                                <rect key="frame" x="16" y="64" width="343" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="oGN-re-RdI">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oGN-re-RdI" id="WCN-nd-Jie">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="P5a-uR-4pL" id="CYC-Ce-QyE"/>
-                            <outlet property="delegate" destination="P5a-uR-4pL" id="zGy-RQ-UAC"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="FUk-pP-eHa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ed8-Dm-kcS">
+                        <constraints>
+                            <constraint firstItem="ytx-XD-4WA" firstAttribute="top" secondItem="qVu-ZN-qnu" secondAttribute="bottom" id="6gY-sV-kkV"/>
+                            <constraint firstItem="ytx-XD-4WA" firstAttribute="leading" secondItem="mX6-n5-H2V" secondAttribute="leadingMargin" id="6tQ-t9-eWH"/>
+                            <constraint firstItem="iEJ-ZM-Cr3" firstAttribute="top" secondItem="ytx-XD-4WA" secondAttribute="bottom" id="O38-kp-pBG"/>
+                            <constraint firstItem="ytx-XD-4WA" firstAttribute="trailing" secondItem="mX6-n5-H2V" secondAttribute="trailingMargin" id="t68-Re-onV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="QRU-0m-Y3A">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="g1A-uW-aaY">
                             <connections>
-                                <segue destination="2qN-1q-WUO" kind="show" id="ifc-rF-RUB"/>
+                                <segue destination="2qN-1q-WUO" kind="show" id="Phy-6O-8Vh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hls-mb-87K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <connections>
+                        <outlet property="tableView" destination="ytx-XD-4WA" id="Riw-Le-FXT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="40r-VF-UTC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="177" y="-29"/>
+            <point key="canvasLocation" x="167" y="-27"/>
         </scene>
         <!--Sound View Controller-->
         <scene sceneID="pDj-ay-tAd">
@@ -128,7 +132,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="P5a-uR-4pL" kind="relationship" relationship="rootViewController" id="WrP-X4-ZZz"/>
+                        <segue destination="UMA-ih-snP" kind="relationship" relationship="rootViewController" id="9hJ-Wi-Tte"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vX0-bb-xXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
